@@ -1,0 +1,21 @@
+
+<div class="container mt-4">
+    <div class="row">
+    {{#each result}}
+        <div class="card mt-4" style="width: 18rem;">
+        <img src="/fish/image/{{this.maCa}}" class="card-img-top" alt="{{this.tenCa}}">
+        <div class="card-body">
+            <h5 class="card-title">{{this.tenCa}}</h5>
+            <p class="card-text">{{this.gia}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+        </div>
+    {{/each}}
+    </div>
+</div>
+
+<style>
+    .card {
+        margin: auto 20px 20px;
+    }
+</style>
