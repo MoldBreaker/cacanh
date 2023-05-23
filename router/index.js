@@ -1,5 +1,5 @@
-const homeController = require('../controller/home');
-const fishController = require('../controller/fish');
+const homeController = require('../controller/homeController');
+const fishController = require('../controller/fishController');
 
 
 const multer = require('multer');
