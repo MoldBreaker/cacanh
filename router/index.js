@@ -1,6 +1,6 @@
 const homeController = require('../controller/homeController');
 const fishController = require('../controller/fishController');
-
+const userController = require('../controller/userController');
 
 const multer = require('multer');
 
@@ -19,4 +19,8 @@ module.exports = (app) => {
     app.get('/fish/add-fish', fishController.addFistForm);
     app.post('/fish/add-fish', upload.single('image'), fishController.processAddFish);
     app.get('/fish/image/:id',fishController.getImage);
+    app.get('/login', userController.renderLoginForm);
+    app.get('/signup', userController.renderSignupForm);
+    app.post('/signup', userController.registerUser);
+    app.post('/login', userController.loginUser);
 }
