@@ -1,5 +1,6 @@
 const db = require('../config/db');
 const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
 
 async function createHashedPassword(password) {
     const saltRounds = 10;
@@ -45,7 +46,8 @@ const login = ({ email, password }, callback) => {
                 .then((isMatch) => {
                     if (isMatch) {
                         callback(null, {
-                            message: "Login Successfully"
+                            message: "Login Successfully",
+                            user: result
                         });
                     } else {
                         callback(null, {
@@ -60,6 +62,30 @@ const login = ({ email, password }, callback) => {
     }})
 }
 
+const generateToken = () => {
+    return uuidv4() + Date.now();
+}
+
+const updateToken = (maKH, callback) => {
+    const sql = `update user set token = ? where maKH = ?`;
+    db.query(sql, [generateToken(), maKH], (err, result) => {
+        if (err) callback(err);
+        const sql = `select * from user where maKH = ?`;
+        db.query(sql, [maKH], (err, user) => {
+            if (err) callback(err);
+            return callback(null, user[0]);
+        })
+    })
+}
+
+const getUserByToken = (token, callback) => {
+    const sql = `select * from user where token = ?`;
+    db.query(sql, [token], (err, user) => {
+        if (err) callback(err);
+        return callback(null, user[0]);
+    })
+}
+
 module.exports = {
-    register, login
+    register, login, updateToken, getUserByToken
 }

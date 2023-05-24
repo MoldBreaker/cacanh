@@ -18,15 +18,35 @@ const registerUser = (req, res) => {
 const loginUser = (req, res) => {
     userModel.login(req.body, (err, result) => {
             if (err) throw  err;
-            console.log(result);
+            if(result.message == 'Login Failed'){
+                return res.redirect('/login');
+            }
+            req.session.user = {
+                maKH: result.user[0].maKH,
+                username: result.user[0].userName,
+                role: result.user[0].role
+            };
+            
+            if(req.body.remember){
+                userModel.updateToken(result.user[0].maKH, (err, user) => {
+                    if (err) throw  err;
+                    res.cookie('remember', user.token, { maxAge: 300000, httpOnly: true });
+                    return res.redirect('/');
+                })
+            }
             res.redirect('/');
         });
 }
-
+const logout = (req, res) => {
+    req.session.destroy();
+    res.clearCookie('remember');
+    res.redirect('/');
+}
 
 module.exports = {
     renderLoginForm,
     renderSignupForm,
     registerUser,
-    loginUser
+    loginUser, 
+    logout
 }

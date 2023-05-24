@@ -24,9 +24,14 @@
               <span id="password-err" class="text-danger"></span>
               
 
-              <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+              <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="remember" name="remember" id="flexCheckChecked" checked>
+              <label class="form-check-label" for="flexCheckChecked">
+                Remember me
+              </label>
+              </div>
 
-              <button id="login-btn" class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+              <button id="login-btn" class="btn btn-outline-light mt-4 btn-lg px-5" type="submit">Login</button>
             </div>
             </form>
 
@@ -43,16 +48,11 @@
 </section>
 
 <style>
-    .gradient-custom {
-/* fallback for old browsers */
-background: rgb(134, 34, 248);
-
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
-
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
-}
+  body {
+    background-image: url("https://wallpapers.com/images/featured/2yocblni243qvt8j.jpg");
+    background-repeat: no-repeat;
+    opacity: 0.8;
+  }
 </style>
 <script>
    let loginForm = document.getElementById("login-form");

@@ -52,6 +52,7 @@
         <i class="fas fa-shopping-cart"></i>
       </a>
 
+      <h1>{{session.username}}</h1>
       <!-- Notifications -->
       <div class="dropdown">
         <a
@@ -82,27 +83,33 @@
       </div>
       <!-- Avatar -->
       <div class="dropdown">
-        <a
-          class="dropdown-toggle d-flex align-items-center hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuAvatar"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-        <a href="/login" class="btn btn-primary"
-              style="padding-left: 1rem; padding-right: 1rem;">Login</a>
-              
-        <a href="/signup" class="btn btn-primary"
-              style="padding-left: 1rem; padding-right: 1rem;">Signup</a>
-          {{!-- <img
-            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-            class="rounded-circle"
-            height="25"
-            alt="Black and White Portrait of a Man"
-            loading="lazy"
-          /> --}}
-        </a>
+              {{#if (checkLogin session)}}
+                <a href="/login" class="btn btn-primary"
+                style="padding-left: 1rem; padding-right: 1rem;">Login</a>
+                
+                <a href="/signup" class="btn btn-primary"
+                style="padding-left: 1rem; padding-right: 1rem;">Signup</a>
+                
+              {{else}}
+                <a
+                  class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                  href="#"
+                  id="navbarDropdownMenuAvatar"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                    class="rounded-circle"
+                    height="25"
+                    alt="Black and White Portrait of a Man"
+                    loading="lazy"
+                />
+                
+                </a>
+              {{/if}}
+          
         <ul
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuAvatar"
@@ -114,7 +121,7 @@
             <a class="dropdown-item" href="#">Settings</a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">Logout</a>
+            <a class="dropdown-item" id="logout-btn" href="#">Logout</a>
           </li>
         </ul>
       </div>
@@ -124,3 +131,29 @@
   <!-- Container wrapper -->
 </nav>
 <!-- Navbar -->
+<script>
+  let logoutBnt = document.getElementById("logout-btn");
+  logoutBnt.onclick = (e) => {
+      e.preventDefault();
+      Swal.fire({
+          title: 'Are you sure?',
+          showDenyButton: true,
+          confirmButtonText: 'Yes',
+          denyButtonText: 'No',
+          customClass: {
+            actions: 'my-actions',
+            cancelButton: 'order-1 right-gap',
+            confirmButton: 'order-2',
+            denyButton: 'order-3',
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/logout";
+          } else if (result.isDenied) {
+            e.preventDefault();
+            Swal.fire('Changes are not logout', '', 'error')
+          }
+  })
+
+  }
+</script>
