@@ -3,6 +3,7 @@ const fishController = require('../controller/fishController');
 const userController = require('../controller/userController');
 const checkLogin = require('../middleware/checkLogin');
 const setSession = require('../middleware/setSession');
+const checkAdmin = require('../middleware/checkAdmin');
 
 const multer = require('multer');
 
@@ -18,7 +19,7 @@ const upload = multer({ storage: storage });
 
 module.exports = (app) => {
     app.get('/', setSession, homeController.helloWorld);
-    app.get('/fish/add-fish', fishController.addFistForm);
+    app.get('/fish/add-fish', checkAdmin, fishController.addFistForm);
     app.post('/fish/add-fish', upload.single('image'), fishController.processAddFish);
     app.get('/fish/image/:id',fishController.getImage);
     app.get('/login',checkLogin, userController.renderLoginForm);

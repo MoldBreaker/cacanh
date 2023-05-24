@@ -26,15 +26,15 @@ const loginUser = (req, res) => {
                 username: result.user[0].userName,
                 role: result.user[0].role
             };
-            
-            if(req.body.remember){
+            if(!req.body.remember){
+                res.redirect('/');
+            } else {
                 userModel.updateToken(result.user[0].maKH, (err, user) => {
                     if (err) throw  err;
-                    res.cookie('remember', user.token, { maxAge: 300000, httpOnly: true });
-                    return res.redirect('/');
+                    res.cookie('remember', user.token, { maxAge: 300000000, httpOnly: true })
+                    res.redirect('/');         
                 })
             }
-            res.redirect('/');
         });
 }
 const logout = (req, res) => {

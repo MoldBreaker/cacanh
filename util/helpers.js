@@ -7,6 +7,14 @@ function checkLogin(session) {
     }
 }
 
+function checkAdmin(session) {
+    if (session.user != undefined &&session.user.role == 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 module.exports = {
-    checkLogin
+    checkLogin, checkAdmin
 };
