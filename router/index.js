@@ -2,6 +2,7 @@ const homeController = require('../controller/homeController');
 const fishController = require('../controller/fishController');
 const userController = require('../controller/userController');
 const dashboardController = require('../controller/dashboardController');
+const cartController = require("../controller/cartController");
 const checkLogin = require('../middleware/checkLogin');
 const setSession = require('../middleware/setSession');
 const checkAdmin = require('../middleware/checkAdmin');
@@ -32,4 +33,5 @@ module.exports = (app) => {
     app.get('/fish/edit/:id', checkAdmin, dashboardController.renderEditForm);
     app.post('/fish/edit/:id', checkAdmin, upload.single('image'), dashboardController.processEditFish);
     app.get('/fish/delete/:id', checkAdmin, dashboardController.deleteFish);
+    app.get('/add-to-cart/:maCa', checkLogin, cartController.addToCart);
 }

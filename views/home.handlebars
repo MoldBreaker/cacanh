@@ -7,7 +7,7 @@
         <div class="card-body">
             <h5 class="card-title">{{this.tenCa}}</h5>
             <p class="card-text">{{this.gia}}</p>
-            <a href="#" class="btn btn-primary">
+            <a class="btn btn-primary add-to-cart" data-id="{{this.maCa}}">
                 <i class="fa-solid fa-cart-shopping fa-beat fa-lg"></i>
             </a>
         </div>
@@ -24,3 +24,15 @@
           background: linear-gradient(to bottom, #33ccff 0%, #6666ff 100%);
     }
 </style>
+
+{{!-- <script>
+    let addToCartBtns = document.querySelectorAll('.add-to-cart');
+    
+    for(let i=0;i<addToCartBtns.length;i++) { 
+        addToCartBtns[i].onclick = (e) => {
+            if(e.target.dataset.id != undefined){
+                
+            }
+        }
+    }
+</script> --}}
