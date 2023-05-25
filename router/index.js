@@ -31,4 +31,5 @@ module.exports = (app) => {
     app.get('/dashboard', checkAdmin, dashboardController.renderDashboard);
     app.get('/fish/edit/:id', checkAdmin, dashboardController.renderEditForm);
     app.post('/fish/edit/:id', checkAdmin, upload.single('image'), dashboardController.processEditFish);
+    app.get('/fish/delete/:id', checkAdmin, dashboardController.deleteFish);
 }

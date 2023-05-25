@@ -54,6 +54,16 @@ const updateFishById = (id, fish, file, callback) => {
     } 
 }
 
+const deleteFishById = (id, callback) => {
+    let sql = `delete from ca where maCa = ?`;
+    db.query(sql, [id], (err, result) => {
+        if (err) callback(err);
+        callback(null, {
+            message: "Deleted Successfully"
+        });
+    })
+}
+
 module.exports = {
-    insertFish, getImage, getAll, getFishById, updateFishById
+    insertFish, getImage, getAll, getFishById, updateFishById, deleteFishById
 }

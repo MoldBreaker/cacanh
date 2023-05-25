@@ -11,8 +11,24 @@
             <h5 class="card-title">{{this.tenCa}}</h5>
             <p class="card-text">{{this.gia}}</p>
             <a class="btn btn-primary" href="/fish/edit/{{this.maCa}}">Chỉnh sửa</a>
+            <a class="btn btn-danger delete-btn" data-id="{{this.maCa}}" data-name="{{this.tenCa}}">Xoá</a>
         </div>
         </div>
     {{/each}}
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    let deleteBtns = document.querySelectorAll('.delete-btn');
+    
+    for(let i=0;i<deleteBtns.length;i++){
+        deleteBtns[i].onclick = (e) => {
+            console.log(e.target.dataset.id);
+            let comfirmDelete = confirm('Bạn có muốn xoá ' + e.target.dataset.name + ' không?');
+            if(comfirmDelete) {
+                window.location.href = '/fish/delete/' + e.target.dataset.id;
+            }
+        }
+    }
+</script>

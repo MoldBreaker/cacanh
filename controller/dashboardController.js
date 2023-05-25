@@ -30,6 +30,14 @@ const processEditFish = (req, res) => {
     })
 }
 
+const deleteFish = (req, res) => {
+    fishModel.deleteFishById(req.params.id, (err, result) => {
+        if(err) throw err;
+        console.log('1 row deleted');
+        res.redirect('back');
+    })
+}
+
 module.exports = {
-    renderDashboard, renderEditForm, processEditFish
+    renderDashboard, renderEditForm, processEditFish, deleteFish
 }

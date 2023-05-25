@@ -1,5 +1,6 @@
-const checkAdmin = (req, res, next) => {
-    if(!req.session.user || req.session.user.role != 1){
+const checkAdmin = async(req, res, next) => {
+    let session = await req.session.user;
+    if(!session || session.role != 1){
         return res.redirect('back');
     } else {
         next();
