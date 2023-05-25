@@ -1,0 +1,99 @@
+
+
+<div class="container">
+  
+<form class="text-center border border-light p-5" action="/fish/edit/{{fish.maCa}}" method="POST" id="add-fish-form" enctype="multipart/form-data">
+  <div class="form-outline">
+    <input type="text" id="form12" class="form-control" name="name" value="{{fish.tenCa}}"/>
+    <label class="form-label" for="form12">Tên cá</label>
+  </div>
+  <span id="name-err" class="text-danger"></span>
+
+  <select class="form-select mt-4" aria-label="Default select example" name="color">
+    <option value="" selected>Chọn màu sắc</option>
+    <option value="yellow">Vàng</option>
+    <option value="red">Đỏ</option>
+    <option value="green">Xanh lục</option>
+    <option value="blue">Xanh dương</option>
+  </select>
+  <span id="color-err" class="text-danger"></span>
+  
+
+  <select class="form-select mt-4" aria-label="Default select example" name="gender">
+    <option value="" selected>Chọn giống</option>
+    <option value="female">Cái</option>
+    <option value="male">Trống</option>
+  </select>
+  <span id="gender-err" class="text-danger" ></span>
+
+  <div class="form-outline">
+    <input type="text" id="form12" class="form-control" name="price" value="{{fish.gia}}"/>
+    <label class="form-label" for="form12">Giá</label>
+  </div>
+  <span id="price-err" class="text-danger"></span>
+
+    <img src="/fish/image/{{fish.maCa}}" alt="{{fish.tenCa}}">
+  <input type="file" class="form-control mt-4" id="customFile" name="image" />
+    <span id="image-err" class="text-danger"></span>
+
+
+  <select class="form-select mt-4" name="category" aria-label="Default select example">
+    {{#each fishCategory}}
+      <option value="{{this.maLoai}}">{{this.tenLoai}}</option>
+    {{/each}}
+  </select>
+  <button type="submit" id="add-fish-btn" class="btn btn-primary">Sửa cá</button>
+
+</form>
+</div>
+
+<script>
+  const addFishBtn = document.getElementById('add-fish-btn');
+  const addFishForm = document.getElementById('add-fish-form');
+
+  addFishBtn.onclick = (e) => {
+    var check = true;
+
+    const form = new FormData(addFishForm);
+    let name = form.get('name');
+    let color = form.get('color');
+    let gender = form.get('gender');
+    let price = form.get('price');
+    let image = form.get('image');
+    let category = form.get('category');
+
+    if(name.length==0){
+      document.getElementById('name-err').innerHTML = 'Không được để trống!'
+      check = false;
+    }else{
+      document.getElementById('name-err').innerHTML = '';
+    }
+
+    if(color ==""){
+      document.getElementById('color-err').innerHTML = 'Vui lòng chọn màu';
+      check = false;
+    }else{
+      document.getElementById('color-err').innerHTML =''; 
+    }
+
+    if(gender==""){
+      document.getElementById('gender-err').innerHTML = 'Vui lòng chọn giống';
+      check = false;
+    }else{
+      document.getElementById('gender-err').innerHTML =''; 
+    }
+
+    var priceRegex = /^(\d*([.](?=\d{3}))?\d+)+((?!\2)[.]\d\d)?$/;
+    if(priceRegex.test(price)==false){
+      document.getElementById('price-err').innerHTML = 'Điền giá hợp lệ!';
+      check = false;
+    }else{
+      document.getElementById('price-err').innerHTML =''; 
+    }
+
+    if(check==false){
+      e.preventDefault();
+    }
+  }
+
+</script>

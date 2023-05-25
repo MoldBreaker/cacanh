@@ -1,6 +1,7 @@
 const homeController = require('../controller/homeController');
 const fishController = require('../controller/fishController');
 const userController = require('../controller/userController');
+const dashboardController = require('../controller/dashboardController');
 const checkLogin = require('../middleware/checkLogin');
 const setSession = require('../middleware/setSession');
 const checkAdmin = require('../middleware/checkAdmin');
@@ -27,4 +28,7 @@ module.exports = (app) => {
     app.post('/signup', userController.registerUser);
     app.post('/login', userController.loginUser);
     app.get('/logout', userController.logout);
+    app.get('/dashboard', checkAdmin, dashboardController.renderDashboard);
+    app.get('/fish/edit/:id', checkAdmin, dashboardController.renderEditForm);
+    app.post('/fish/edit/:id', checkAdmin, upload.single('image'), dashboardController.processEditFish);
 }
