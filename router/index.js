@@ -6,6 +6,7 @@ const cartController = require("../controller/cartController");
 const checkLogin = require('../middleware/checkLogin');
 const setSession = require('../middleware/setSession');
 const checkAdmin = require('../middleware/checkAdmin');
+const checkNotLogin = require('../middleware/checkNotLogin');
 
 const multer = require('multer');
 
@@ -33,5 +34,9 @@ module.exports = (app) => {
     app.get('/fish/edit/:id', checkAdmin, dashboardController.renderEditForm);
     app.post('/fish/edit/:id', checkAdmin, upload.single('image'), dashboardController.processEditFish);
     app.get('/fish/delete/:id', checkAdmin, dashboardController.deleteFish);
-    app.get('/add-to-cart/:maCa', checkLogin, cartController.addToCart);
+    app.get('/add-to-cart/:maCa', checkNotLogin, cartController.addToCart);
+    app.get('/cart', setSession, cartController.renderCart);
+    app.get('/cart/get-items' , cartController.getItems);
+    app.get('/cart/increase-item/:maCa', cartController.increaseItem);
+    app.get('/cart/decrease-item/:maCa', cartController.decreaseItem);
 }

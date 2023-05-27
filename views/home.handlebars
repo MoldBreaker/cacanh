@@ -8,7 +8,7 @@
             <h5 class="card-title">{{this.tenCa}}</h5>
             <p class="card-text">{{this.gia}}</p>
             <a class="btn btn-primary add-to-cart" data-id="{{this.maCa}}">
-                <i class="fa-solid fa-cart-shopping fa-beat fa-lg"></i>
+                <i class="fa-solid fa-cart-shopping fa-beat fa-lg" data-id="{{this.maCa}}"></i>
             </a>
         </div>
         </div>
@@ -25,14 +25,30 @@
     }
 </style>
 
-{{!-- <script>
-    let addToCartBtns = document.querySelectorAll('.add-to-cart');
+<script>
     
-    for(let i=0;i<addToCartBtns.length;i++) { 
-        addToCartBtns[i].onclick = (e) => {
-            if(e.target.dataset.id != undefined){
+
+    $(document).ready(function() {
+        let addToCartBtns = document.querySelectorAll('.add-to-cart');
+        const url = 'http://localhost:3000';
+
+        for(let i=0;i<addToCartBtns.length;i++) { 
+            addToCartBtns[i].onclick = (e) => {
+                $.ajax({
+                url: url + '/add-to-cart/' + e.target.dataset.id, 
                 
+                success: function(result){
+                    if(result.login == false){
+                        window.location.href = '/login';
+                    }
+                    Swal.fire(
+                        'Good job!',
+                        'Thêm vào giỏ hàng thành công',
+                        'success'
+                    )
+                }});
             }
         }
-    }
-</script> --}}
+
+    });
+</script>

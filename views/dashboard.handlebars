@@ -24,7 +24,6 @@
     
     for(let i=0;i<deleteBtns.length;i++){
         deleteBtns[i].onclick = (e) => {
-            console.log(e.target.dataset.id);
             let comfirmDelete = confirm('Bạn có muốn xoá ' + e.target.dataset.name + ' không?');
             if(comfirmDelete) {
                 window.location.href = '/fish/delete/' + e.target.dataset.id;

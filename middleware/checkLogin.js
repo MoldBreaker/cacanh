@@ -1,8 +1,9 @@
 const checkLogin = (req, res, next) =>{ 
     if(req.session.user){
-        res.redirect('back');
+        return res.redirect('back');
+    } else {
+        next();
     }
-    next();
 }
 
 module.exports = checkLogin;
