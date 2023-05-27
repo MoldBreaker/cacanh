@@ -54,7 +54,24 @@ const decreaseItem = (req, res) => {
     })
 }
 
+const removeItem = (req, res) => {
+    cartModel.removeItem(req.session.user.maKH, req.params.maCa, (err, result) => {
+        if (err) throw err;
+        cartModel.getCartItemListById(req.session.user.maKH, (err, result) => {
+            if (err) throw err;
+            let totalPrice=0;
+            for(let i=0;i<result.length;i++){
+                totalPrice+=result[i].soLuong*result[i].gia;
+            }
+            res.json({
+                data: result,
+                totalPrice: totalPrice
+            });
+        })
+    })
+}
+
 module.exports = {
-    addToCart, renderCart, getItems, increaseItem, decreaseItem
+    addToCart, renderCart, getItems, increaseItem, decreaseItem, removeItem
 }
 

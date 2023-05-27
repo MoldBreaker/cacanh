@@ -100,6 +100,18 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
         })
     }
 
+    const removeItem = (e) => {
+        let id = e.dataset.id;
+        $.ajax({
+          url: url + '/cart/remove-item/' + id,
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {   
+              renderHtml(data);
+          }
+        })
+    }
+
 
     const renderHtml = (data) => {
       let html = data.data.map(each => {
@@ -121,13 +133,9 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
                 <!-- Data -->
                 <p><strong>${each.tenCa}</strong></p>
                 <p>Color: ${each.mauSac}</p>
-                <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" data-id="${each.maCa}" onclick="removeItem(this)"
                   title="Remove item">
                   <i class="fas fa-trash"></i>
-                </button>
-                <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
-                  title="Move to the wish list">
-                  <i class="fas fa-heart"></i>
                 </button>
                 <!-- Data -->
               </div>
@@ -140,8 +148,8 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
                     <i class="fas fa-minus"></i>
                   </button>
 
-                  <div class="form-outline">
-                    <input id="form1" min="0" name="quantity" value="${each.soLuong}" type="number" class="form-control" />
+                  <div class="form-outline text-center">
+                    ${each.soLuong}
                   </div>
 
                   <button class="btn btn-primary px-3 ms-2"

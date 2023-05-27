@@ -39,4 +39,5 @@ module.exports = (app) => {
     app.get('/cart/get-items' , cartController.getItems);
     app.get('/cart/increase-item/:maCa', cartController.increaseItem);
     app.get('/cart/decrease-item/:maCa', cartController.decreaseItem);
+    app.get('/cart/remove-item/:maCa', cartController.removeItem);
 }
