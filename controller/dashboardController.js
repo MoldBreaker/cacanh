@@ -1,8 +1,9 @@
 const fishModel = require('../model/fishModel');
 const fishCategoryModel = require('../model/fishCategory');
+const cartModel = require('../model/cartModel');
 
 const renderDashboard = (req, res) => {
-    fishModel.getAll((err, data) => {
+    fishModel.getAll('', (err, data) => {
         res.render('dashboard', {
             fish: data
         })
@@ -31,11 +32,15 @@ const processEditFish = (req, res) => {
 }
 
 const deleteFish = (req, res) => {
-    fishModel.deleteFishById(req.params.id, (err, result) => {
+    cartModel.removeItemByMaCa(req.params.id, (err, result) => {
         if(err) throw err;
-        console.log('1 row deleted');
-        res.redirect('back');
+        fishModel.deleteFishById(req.params.id, (err, result) => {
+            if(err) throw err;
+            console.log('1 row deleted');
+            res.redirect('back');
+        })
     })
+    
 }
 
 module.exports = {

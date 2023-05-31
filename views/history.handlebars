@@ -1,0 +1,42 @@
+<table border="1" width="100%">
+    <div>
+        <tr>
+            <th>Ma HD</th>
+            <th>Nguoi Nhan</th>
+            <th>Email</th>
+            <th>NgayDat</th>
+        </tr>
+    </div>
+    <div id="history-body">
+
+    </div>
+</table>
+
+<script>
+
+    const renderHistory = (result) => {
+        let html = '';
+        for(let i=0;i<result.length;i++){
+            html += `
+            <tr>
+                <td>${result[i].maHD}</td>
+                <td>${result[i].fullname}</td>
+                <td>${result[i].email}</td>
+                <td>${result[i].ngayLap}</td>
+            </tr>
+            `;
+        }
+        $('#history-body').html(html);
+    }
+
+    $.ajax({
+        url: "/history/get-all",
+        method: 'GET',
+        dataType: 'json',
+        success: function(result){
+          renderHistory(result);
+        }
+    });
+
+
+</script>

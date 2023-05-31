@@ -60,21 +60,19 @@
           aria-expanded="false"
         >
           <i class="fas fa-bell"></i>
-          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+          <span class="badge rounded-pill badge-notification bg-danger" id="notification-count"></span>
         </a>
+
+        <!-- Notifications -->
+        
+        <!-- Notifications -->
+
         <ul
+          id="notifications-list"
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuLink"
         >
-          <li>
-            <a class="dropdown-item" href="#">Some news</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Another news</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </li>
+
         </ul>
       </div>
       <!-- Avatar -->
@@ -114,7 +112,7 @@
           {{else}}
           {{/if}}
           <li>
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="/history">History</a>
           </li>
           <li>
             <a class="dropdown-item" id="logout-btn" href="#">Logout</a>
@@ -128,6 +126,51 @@
 </nav>
 <!-- Navbar -->
 <script>
+
+const renderNotification = (result) => {
+  let html = '';
+          for(let i = 0; i < result.length; i++){
+            html += `
+              <li>
+                <p class="dropdown-item">${result[i].noiDung} - ${result[i].thoiGian} <button type="button" onclick="removeNotification(this)" class="btn btn-danger sm" data-id="${result[i].maTB}">X</button></p>
+              </li>
+          `
+  }
+  if(result.length == 0){
+    $('#notification-count').html(``);
+    html += `
+              <li>
+                <p class="dropdown-item">Không có thông báo nào</p>
+              </li>
+          `
+  } else {
+    $('#notification-count').html(result.length);
+  }
+  
+  $('#notifications-list').html(html);
+}  
+
+
+        $.ajax({
+        url: "/notifications/get-all",
+        method: 'GET',
+        dataType: 'json',
+        success: function(result){
+          renderNotification(result);
+        }});
+
+  const removeNotification = (e) => {
+    let id = e.dataset.id;
+    $.ajax({
+        url: "/notifications/delete-one/" + id,
+        method: 'GET',
+        dataType: 'json',
+        success: function(result){
+          renderNotification(result);
+        }});
+  }
+        
+
   let logoutBnt = document.getElementById("logout-btn");
   logoutBnt.onclick = (e) => {
       e.preventDefault();

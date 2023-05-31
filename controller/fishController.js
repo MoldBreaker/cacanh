@@ -2,6 +2,7 @@ const con = require('../config/db');
 const path = require('path');
 const fishCategoryModel = require('../model/fishCategory');
 const fishModel = require('../model/fishModel');
+const notificationModel = require('../model/notificationsModel');
 
 const addFistForm = (req, res) => {
     fishCategoryModel.getAll((err, result) => {
@@ -15,9 +16,13 @@ const addFistForm = (req, res) => {
 const processAddFish = (req, res) => {
     fishModel.insertFish(req.body, req.file.filename, (err, result) => {
         if(err) throw err;
-        console.log(result);
+        notificationModel.sendNofiticationAll(`${req.body.name} đã được thêm vào cửa hàng`, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.redirect('back');
+        })
     })
-    res.redirect('back');
+    
 }
 
 const getImage = (req, res) => {

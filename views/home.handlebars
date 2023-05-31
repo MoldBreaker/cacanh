@@ -1,11 +1,23 @@
 
 <div class="container mt-4">
+
+        <div class="input-group">
+        <div class="form-outline">
+            <input type="search" id="search-field" class="form-control"/>
+            <label class="form-label" for="form1">Search</label>
+        </div>
+        <button class="btn btn-primary" id="search-btn">
+            <i class="fas fa-search"></i>
+        </button>
+        </div>
+
     <div class="row">
     {{#each result}}
         <div class="card mt-4" style="width: 18rem;">
-        <img src="/fish/image/{{this.maCa}}" class="card-img-top  fa-fade fa-2xs" alt="{{this.tenCa}}">
+        <img src="/fish/image/{{this.maCa}}" width="250px" height="150px" class="card-img-top  fa-beat fa-2xs" style="--fa-animation-duration: 4s;" alt="{{this.tenCa}}">
         <div class="card-body">
             <h5 class="card-title">{{this.tenCa}}</h5>
+            <h6 class="card-title">{{this.giong}}</h6>
             <p class="card-text">{{this.gia}}</p>
             <a class="btn btn-primary add-to-cart" data-id="{{this.maCa}}">
                 <i class="fa-solid fa-cart-shopping fa-beat fa-lg" data-id="{{this.maCa}}"></i>
@@ -26,7 +38,7 @@
 </style>
 
 <script>
-    
+
 
     $(document).ready(function() {
         let addToCartBtns = document.querySelectorAll('.add-to-cart');
@@ -50,5 +62,44 @@
             }
         }
 
+        let searchBtn = document.getElementById('search-btn');
+        var urlParams = new URL(url);
+        var search_params = urlParams.searchParams;
+        searchBtn.onclick = (e) => {
+            let searchField = document.getElementById('search-field').value;
+            if(searchField == ''){
+                window.location.href = '/';
+            } else {
+                window.location.href = setQueryParameter(url, 'search', searchField);
+            }
+        }   
+
     });
+
+    function setQueryParameter(url, key, value) {
+  // Kiểm tra xem URL đã có tham số truy vấn chưa
+  const separator = url.includes('?') ? '&' : '?';
+
+  // Tạo một mảng lưu trữ các cặp key-value của truy vấn URL
+  const queryParams = [];
+
+  // Phân tích URL và lấy các tham số truy vấn hiện có
+  const urlObj = new URL(url);
+  const searchParams = urlObj.searchParams;
+
+  // Duyệt qua các tham số truy vấn hiện có và thêm vào mảng queryParams
+  for (const [paramKey, paramValue] of searchParams.entries()) {
+    if (paramKey !== key) {
+      queryParams.push(`${encodeURIComponent(paramKey)}=${encodeURIComponent(paramValue)}`);
+    }
+  }
+
+  // Thêm cặp key-value mới vào mảng queryParams
+  queryParams.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+
+  // Xây dựng URL mới với các tham số truy vấn đã được cập nhật
+  const updatedUrl = `${urlObj.origin}${urlObj.pathname}${separator}${queryParams.join('&')}`;
+
+  return updatedUrl;
+}
 </script>

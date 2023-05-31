@@ -15,6 +15,18 @@ function checkAdmin(session) {
     }
 }
 
+function calcPrice(fish) {
+    return fish.gia * fish.soLuong;
+}
+
+function sumPrice(fishArr) {
+    let sum = 0;
+    for(let i=0;i<fishArr.length;i++){
+        sum += fishArr[i].gia * fishArr[i].soLuong
+    }
+    return sum;
+}
+
 module.exports = {
-    checkLogin, checkAdmin
+    checkLogin, checkAdmin, calcPrice, sumPrice
 };

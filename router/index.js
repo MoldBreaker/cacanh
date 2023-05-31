@@ -3,6 +3,8 @@ const fishController = require('../controller/fishController');
 const userController = require('../controller/userController');
 const dashboardController = require('../controller/dashboardController');
 const cartController = require("../controller/cartController");
+const notificationsController = require('../controller/notificationsController');
+const checkoutController = require('../controller/checkoutController');
 const checkLogin = require('../middleware/checkLogin');
 const setSession = require('../middleware/setSession');
 const checkAdmin = require('../middleware/checkAdmin');
@@ -40,4 +42,10 @@ module.exports = (app) => {
     app.get('/cart/increase-item/:maCa', cartController.increaseItem);
     app.get('/cart/decrease-item/:maCa', cartController.decreaseItem);
     app.get('/cart/remove-item/:maCa', cartController.removeItem);
+    app.get('/notifications/get-all', notificationsController.getAllNotifications);
+    app.get('/notifications/delete-one/:maTB', notificationsController.deleteOneNotifications);
+    app.get('/checkout', checkoutController.renderCheckout);
+    app.post('/checkout', checkoutController.processCheckout);
+    app.get('/history/get-all', checkoutController.getAllHistory);
+    app.get('/history', checkoutController.renderHistory);
 }

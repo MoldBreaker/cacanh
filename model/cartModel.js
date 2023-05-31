@@ -81,11 +81,29 @@ const decreaseItem = (maKH, maCa, callback) => {
     })
 }
 
+const removeItemByMaCa = (maCa, callback) => {
+    let sql = `delete from cart where maCa = ?`;
+    db.query(sql, [maCa], (err, result) => {
+        if (err) return callback(err);
+        callback(null, result);
+    })
+}
+
+const removeCartByUserId = (maKH, callback) => {
+    let sql = `delete from cart where maKH = ?`;
+    db.query(sql, [maKH], (err, result) => {
+        if (err) return callback(err);
+        callback(null, result);
+    })
+}
+
 module.exports = {
     addToCart,
     getCartItemById,
     getCartItemListById,
     increaseItem,
     decreaseItem,
-    removeItem
+    removeItem,
+    removeItemByMaCa,
+    removeCartByUserId
 }

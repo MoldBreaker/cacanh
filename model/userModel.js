@@ -86,6 +86,32 @@ const getUserByToken = (token, callback) => {
     })
 }
 
+const getAllUsers = (callback) => {
+    let sql = `select * from user where role = 0`;
+    db.query(sql, (err, result) => {
+        if (err) callback(err);
+        return callback(null, result);
+    })
+}
+
+const getUserById = (maKH, callback) => {
+    const sql = `select * from user where maKH = ?`;
+    db.query(sql, [maKH], (err, result) => {
+        if (err) callback(err);
+        return callback(null, result[0]);
+    })
+}
+
+const updateMoreInfoById = (maKH, {taiKhoanTT, diaChi, fullname} ,callback) =>{
+    let sql = `update user set taiKhoanTT = ?, diaChi = ?, fullname = ? where maKH = ?`;
+    db.query(sql, [taiKhoanTT, diaChi, fullname, maKH], (err, result) => {
+        if (err) callback(err);
+        return callback(null, {
+            message: 'updated more info successfully'
+        });
+    })
+}
+
 module.exports = {
-    register, login, updateToken, getUserByToken
+    register, login, updateToken, getUserByToken, getAllUsers, getUserById, updateMoreInfoById
 }

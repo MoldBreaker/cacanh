@@ -18,8 +18,8 @@ const getImage = (id, callback) => {
     })
 }
 
-const getAll = (callback) => {
-    let sql = `select * from ca `;
+const getAll = (seacrh, callback) => {
+    let sql = `select * from ca where tenCa like '%${seacrh}%'`;
     db.query(sql, (err, result) => {
         if (err) callback(err);
         callback(null, result);
