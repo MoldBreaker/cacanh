@@ -75,6 +75,15 @@ const getAllHistory = (req, res) => {
     })
 }
 
+const getDetailInvoice = (req, res) => {
+    checkoutModel.getDetailInvoiceById(req.params.maHD, (err, result) => {
+        if(err) throw err;
+        res.render('detailInvoice', {
+            invoices: result
+        })
+    })
+}
+
 module.exports = {
-    renderCheckout, processCheckout, getAllHistory, renderHistory
+    renderCheckout, processCheckout, getAllHistory, renderHistory, getDetailInvoice
 }

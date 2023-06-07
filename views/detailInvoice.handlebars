@@ -1,0 +1,31 @@
+<h1 class="text-center mt-4">Mã hoá đơn: {{invoices.0.maHD}}</h1>
+<h3 class="text-center mt-4">Người nhận hàng: {{invoices.0.fullname}} <br> Số điện thoại: {{invoices.0.SDTNhan}} <br> Tổng tiền: {{sumPrice invoices}}</h3>
+<ul class="list-group mt-4">
+{{#each invoices}}
+    <li class="list-group-item">
+        <img src="/fish/image/{{this.maCa}}" width="100px" height="80px" alt="{{this.tenCa}}">
+        Tên Cá: {{this.tenCa}}
+        Đơn giá: {{this.gia}}
+        Số lượng đã mua: {{this.soLuong}}
+        Số tiền thanh toán cho loại cá này: {{calcPrice this}}
+    </li>
+{{/each}}
+</ul>
+<div class="back-btn">   
+    <a href="/history" class="btn button btn-primary text-center mt-4">Quay Lại</a>
+</div>
+
+<style>
+    .button {
+    padding:1em;
+    text-align: center;
+    display:inline-block;
+    text-decoration: none !important;
+    margin:0 auto;
+}
+
+.back-btn {
+    width: 100%;
+    text-align: center;
+}
+</style>

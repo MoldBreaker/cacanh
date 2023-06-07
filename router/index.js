@@ -47,5 +47,6 @@ module.exports = (app) => {
     app.get('/checkout', checkoutController.renderCheckout);
     app.post('/checkout', checkoutController.processCheckout);
     app.get('/history/get-all', checkoutController.getAllHistory);
-    app.get('/history', checkoutController.renderHistory);
+    app.get('/history', setSession, checkoutController.renderHistory);
+    app.get('/history/detail/:maHD', setSession, checkoutController.getDetailInvoice);
 }

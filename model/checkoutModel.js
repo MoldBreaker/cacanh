@@ -31,6 +31,14 @@ const getAllInvoiceByUserId = (maKH, callback) => {
     })
 }
 
+const getDetailInvoiceById = (maHD, callback) => {
+    let sql = `select * from cthd join hoadon on cthd.maHD = hoadon.maHD join user on hoadon.maKH = user.maKH where hoadon.maHD = ?`;
+    db.query(sql, [maHD], (err, result)=>{
+        if(err) callback(err);
+        callback(null, result);
+    })
+}
+
 module.exports = {
-    insertInvoice, insertDetailInvoice, getAllInvoiceByUserId
+    insertInvoice, insertDetailInvoice, getAllInvoiceByUserId, getDetailInvoiceById
 }

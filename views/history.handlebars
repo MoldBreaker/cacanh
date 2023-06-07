@@ -1,16 +1,6 @@
-<table border="1" width="100%">
-    <div>
-        <tr>
-            <th>Ma HD</th>
-            <th>Nguoi Nhan</th>
-            <th>Email</th>
-            <th>NgayDat</th>
-        </tr>
-    </div>
-    <div id="history-body">
-
-    </div>
-</table>
+<div class="list-group">
+    <div id="history-body"></div>
+</div>
 
 <script>
 
@@ -18,12 +8,7 @@
         let html = '';
         for(let i=0;i<result.length;i++){
             html += `
-            <tr>
-                <td>${result[i].maHD}</td>
-                <td>${result[i].fullname}</td>
-                <td>${result[i].email}</td>
-                <td>${result[i].ngayLap}</td>
-            </tr>
+            <a href="/history/detail/${result[i].maHD}" class="list-group-item list-group-item-action">Mã Hoá Đơn: ${result[i].maHD} - Người nhận hàng: ${result[i].fullname} - Ngày mua: ${result[i].ngayLap} - Tổng tiền: ${result[i].tongTien}</a>
             `;
         }
         $('#history-body').html(html);
@@ -34,6 +19,7 @@
         method: 'GET',
         dataType: 'json',
         success: function(result){
+            console.log(result);
           renderHistory(result);
         }
     });
