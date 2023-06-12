@@ -63,7 +63,7 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
         const decreaseQuantityBtns = document.querySelectorAll('.decrease-quantity-btn');
 
         $.ajax({
-            url: url + 'cart/get-items',
+            url: '/cart/get-items',
             method: 'GET',
             dataType: 'json',
             success: function (data) {         
@@ -76,7 +76,7 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
     const increaseQuantity = (e) => {
         let id = e.dataset.id;
         $.ajax({
-          url: url + 'cart/increase-item/' + id,
+          url: '/cart/increase-item/' + id,
             method: 'GET',
             dataType: 'json',
             success: function (data) {   
@@ -88,7 +88,7 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
     const decreaseQuantity = (e) => {
         let id = e.dataset.id;
         $.ajax({
-          url: url + 'cart/decrease-item/' + id,
+          url: '/cart/decrease-item/' + id,
             method: 'GET',
             dataType: 'json',
             success: function (data) {   
@@ -100,7 +100,7 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
     const removeItem = (e) => {
         let id = e.dataset.id;
         $.ajax({
-          url: url + 'cart/remove-item/' + id,
+          url: '/cart/remove-item/' + id,
             method: 'GET',
             dataType: 'json',
             success: function (data) {   

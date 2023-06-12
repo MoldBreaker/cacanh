@@ -47,7 +47,7 @@
         for(let i=0;i<addToCartBtns.length;i++) { 
             addToCartBtns[i].onclick = (e) => {
                 $.ajax({
-                url: url + 'add-to-cart/' + e.target.dataset.id, 
+                url: '/add-to-cart/' + e.target.dataset.id, 
                 
                 success: function(result){
                     if(result.login == false){
