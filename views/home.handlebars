@@ -42,7 +42,7 @@
 
     $(document).ready(function() {
         let addToCartBtns = document.querySelectorAll('.add-to-cart');
-        const url = 'https://cacanh.onrender.com/';
+        const url = window.location.href;
 
         for(let i=0;i<addToCartBtns.length;i++) { 
             addToCartBtns[i].onclick = (e) => {
