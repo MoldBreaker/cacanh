@@ -39,6 +39,10 @@ db.connect((err) => {
     console.log('Connected to database');
 })
 
+setInterval(function () {
+    db.query('SELECT 1');
+}, 5000);
+
 router(app);
 
 app.listen(port, (err) => {
